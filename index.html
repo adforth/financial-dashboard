@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en"><head>
+<html lang="en">
+<head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Personal Financial Dashboard</title>
@@ -244,6 +245,22 @@ header h1 span{color:var(--green)}
 .reset-btn{background:transparent;color:var(--danger);border:1.5px solid var(--danger);border-radius:8px;padding:9px 16px;font-size:0.82rem;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:6px;transition:background .15s,color .15s;white-space:nowrap}
 .reset-btn:hover{background:var(--danger);color:#fff}
 .reset-btn svg{flex-shrink:0}
+
+/* ── Built-in section visibility toggle ── */
+.builtin-section{position:relative}
+.section-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:4px}
+.section-header .field-label{margin-bottom:0}
+.section-vis-btn{flex-shrink:0;opacity:0;background:none;border:none;color:var(--muted);cursor:pointer;padding:2px 5px;border-radius:4px;line-height:1;transition:opacity .2s,color .15s,background .15s;display:inline-flex;align-items:center}
+.builtin-section:hover .section-vis-btn{opacity:.5}
+.sum-item:hover .section-vis-btn{opacity:.5}
+.section-vis-btn:hover{opacity:1!important;color:var(--navy-light)!important;background:var(--bg)}
+
+/* ── Target info tooltip ── */
+#tgt-tip{position:fixed;background:var(--navy);color:#fff;padding:9px 12px;border-radius:9px;font-size:.72rem;line-height:1.55;font-weight:400;max-width:240px;z-index:4000;pointer-events:none;box-shadow:0 6px 24px rgba(26,58,92,.22);display:none;white-space:normal}
+.trow-label-wrap{display:flex;align-items:center;gap:5px;flex:1}
+.trow-label-wrap .trow-label{flex:1}
+.tip-icon{width:14px;height:14px;background:var(--accent);color:#fff;border-radius:50%;font-size:.62rem;font-weight:800;cursor:default;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;border:none;line-height:1;opacity:.8;transition:opacity .15s}
+.tip-icon:hover{opacity:1;background:var(--navy)}
 </style>
 </head>
 <body>
@@ -253,20 +270,20 @@ header h1 span{color:var(--green)}
   <h1>Financial <span>Dashboard</span></h1>
   <div class="header-right">
     <button class="edit-targets-btn" onclick="openTargetsEditor()">
-      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
       Edit Targets
     </button>
     <button class="export-btn" onclick="exportToClaude()">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path><polyline points="16 6 12 2 8 6"></polyline><line x1="12" y1="2" x2="12" y2="15"></line></svg>
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
       Export to Claude
     </button>
     <button class="reset-btn" onclick="openResetModal()">
-      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="1 4 1 10 7 10"></polyline><path d="M3.51 15a9 9 0 1 0 .49-3.56"></path></svg>
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.56"/></svg>
       Reset Dashboard
     </button>
     <div class="header-meta">
-      <div id="last-updated">Last updated: 3/25/2026, 11:57:06 AM</div>
-      <div id="save-indicator" class="">✓ Saved</div>
+      <div id="last-updated">Last updated: —</div>
+      <div id="save-indicator">✓ Saved</div>
     </div>
   </div>
 </header>
@@ -278,85 +295,89 @@ header h1 span{color:var(--green)}
 <!-- ══════════════════════════════════════════
      ROW 1, COL 1 — SUMMARY
 ═══════════════════════════════════════════ -->
-
-
-<!-- ══════════════════════════════════════════
-     ROW 1, COL 2 — HOUSEHOLD OVERVIEW
-═══════════════════════════════════════════ -->
-
-
-<!-- ══════════════════════════════════════════
-     ROW 2, COL 1 — RETIREMENT
-═══════════════════════════════════════════ -->
-
-
-<!-- ══════════════════════════════════════════
-     ROW 2, COL 2 — SAVINGS GOALS
-═══════════════════════════════════════════ -->
-
-
-<!-- ══════════════════════════════════════════
-     ROW 3, COL 1 — STUDENT LOANS
-═══════════════════════════════════════════ -->
-
-
-<!-- ══════════════════════════════════════════
-     ROW 3, COL 2 — KIDS EDUCATION
-═══════════════════════════════════════════ -->
-
-
 <div class="card" id="panel-summary">
   <div class="card-title"><span class="drag-handle" title="Drag to reorder">⠿</span>At-a-Glance Summary<button class="panel-hide-btn" onclick="hideBuiltinPanel('panel-summary')" title="Hide panel">×</button></div>
   <div class="sum-grid">
-    <div class="sum-item">
-      <div class="sum-item-label">Net Worth</div>
-      <div class="sum-item-value green" id="sum_net_worth">$1,032,995</div>
-      <div class="sum-item-sub" id="sum_yoy">YoY: +$0 (+0%)</div>
+    <div class="sum-item" id="sumtile-net-worth">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
+        <div class="sum-item-label" style="margin-bottom:0">Net Worth</div>
+        <button class="section-vis-btn" onclick="hideSectionDirect('sumtile-net-worth')" title="Hide this tile"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
+      </div>
+      <div class="sum-item-value green" id="sum_net_worth">$0</div>
+      <div class="sum-item-sub" id="sum_yoy">YoY: —</div>
     </div>
-    <div class="sum-item">
-      <div class="sum-item-label">Savings Rate</div>
-      <div class="sum-item-value" id="sum_sr" style="color: rgb(220, 38, 38);">1.1%</div>
+    <div class="sum-item" id="sumtile-savings-rate">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
+        <div class="sum-item-label" style="margin-bottom:0">Savings Rate</div>
+        <button class="section-vis-btn" onclick="hideSectionDirect('sumtile-savings-rate')" title="Hide this tile"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
+      </div>
+      <div class="sum-item-value" id="sum_sr">0%</div>
       <div class="sum-item-sub" id="sum_sr_sub">Target: 20%</div>
     </div>
-    <div class="sum-item">
-      <div class="sum-item-label">Monthly Expenses</div>
-      <div class="sum-item-value" id="sum_exp_val" style="color: rgb(220, 38, 38);">$24,431</div>
-      <div class="sum-item-sub" id="sum_exp_sub">Over $24,000 budget</div>
+    <div class="sum-item" id="sumtile-expenses">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
+        <div class="sum-item-label" style="margin-bottom:0">Monthly Expenses</div>
+        <button class="section-vis-btn" onclick="hideSectionDirect('sumtile-expenses')" title="Hide this tile"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
+      </div>
+      <div class="sum-item-value" id="sum_exp_val">$0</div>
+      <div class="sum-item-sub" id="sum_exp_sub">Budget: $0</div>
     </div>
-    <div class="sum-item">
-      <div class="sum-item-label">Roth IRA Combined</div>
+    <div class="sum-item" id="sumtile-roth">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
+        <div class="sum-item-label" style="margin-bottom:0">Roth IRA Combined</div>
+        <button class="section-vis-btn" onclick="hideSectionDirect('sumtile-roth')" title="Hide this tile"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
+      </div>
       <div class="sum-item-value" id="sum_roth_val">$0</div>
       <div class="sum-item-sub" id="sum_roth_sub">0% of $14,000</div>
     </div>
-    <div class="sum-item">
-      <div class="sum-item-label">Emergency Fund</div>
-      <div class="sum-item-value" id="sum_emerg_val">$57,106</div>
-      <div class="sum-item-sub" id="sum_emerg_sub">39.7% of $144K</div>
+    <div class="sum-item" id="sumtile-emergency">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
+        <div class="sum-item-label" style="margin-bottom:0">Emergency Fund</div>
+        <button class="section-vis-btn" onclick="hideSectionDirect('sumtile-emergency')" title="Hide this tile"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
+      </div>
+      <div class="sum-item-value" id="sum_emerg_val">$0</div>
+      <div class="sum-item-sub" id="sum_emerg_sub">0% of $0</div>
     </div>
-    <div class="sum-item">
-      <div class="sum-item-label">Retirement</div>
-      <div class="sum-item-value" id="sum_ret_val">$678,085</div>
-      <div class="sum-item-sub" id="sum_ret_sub">28.3% of $2.4M</div>
+    <div class="sum-item" id="sumtile-retirement">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
+        <div class="sum-item-label" style="margin-bottom:0">Retirement</div>
+        <button class="section-vis-btn" onclick="hideSectionDirect('sumtile-retirement')" title="Hide this tile"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
+      </div>
+      <div class="sum-item-value" id="sum_ret_val">$0</div>
+      <div class="sum-item-sub" id="sum_ret_sub">0% of $0</div>
     </div>
-    <div class="sum-item">
-      <div class="sum-item-label">IBR Progress</div>
-      <div class="sum-item-value" id="sum_ibr_val">157 / 300</div>
-      <div class="sum-item-sub" id="sum_ibr_sub">52.3% · ~11.9 yrs left</div>
+    <div class="sum-item" id="sumtile-ibr">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
+        <div class="sum-item-label" style="margin-bottom:0">IBR Progress</div>
+        <button class="section-vis-btn" onclick="hideSectionDirect('sumtile-ibr')" title="Hide this tile"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
+      </div>
+      <div class="sum-item-value" id="sum_ibr_val">0 / 300</div>
+      <div class="sum-item-sub" id="sum_ibr_sub">0% · ~25.0 yrs left</div>
     </div>
-    <div class="sum-item">
-      <div class="sum-item-label">Loan Balance</div>
-      <div class="sum-item-value" id="sum_loan_val">$121,738</div>
+    <div class="sum-item" id="sumtile-loan">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
+        <div class="sum-item-label" style="margin-bottom:0">Loan Balance</div>
+        <button class="section-vis-btn" onclick="hideSectionDirect('sumtile-loan')" title="Hide this tile"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
+      </div>
+      <div class="sum-item-value" id="sum_loan_val">$0</div>
       <div class="sum-item-sub">Current balance</div>
     </div>
   </div>
   <div id="ci-panel-summary"></div>
   <button class="add-item-btn" onclick="openAddItem('panel-summary')">+ Add Item</button>
-</div><div class="card" id="panel-household">
+</div>
+
+<!-- ══════════════════════════════════════════
+     ROW 1, COL 2 — HOUSEHOLD OVERVIEW
+═══════════════════════════════════════════ -->
+<div class="card" id="panel-household">
   <div class="card-title"><span class="drag-handle" title="Drag to reorder">⠿</span>Household Overview<button class="panel-hide-btn" onclick="hideBuiltinPanel('panel-household')" title="Hide panel">×</button></div>
 
-  <div id="section-net-worth">
-  <!-- Net Worth -->
-  <div class="field-label">Net Worth</div>
+  <div id="section-net-worth" class="builtin-section">
+  <div class="section-header">
+    <div class="field-label">Net Worth</div>
+    <button class="section-vis-btn" onclick="hideSectionDirect('section-net-worth')" title="Hide this section"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
+  </div>
   <div class="big-stat">
     <div class="big-number-area">
       <span class="big-prefix">$</span>
@@ -380,16 +401,19 @@ header h1 span{color:var(--green)}
   <hr class="section-divider">
   </div>
 
-  <div id="section-expenses">
+  <div id="section-expenses" class="builtin-section">
   <!-- Monthly Expenses -->
   <div class="field-row">
     <div class="field-content">
-      <div class="field-label">Monthly Expenses</div>
-      <div class="progress-wrap">
-        <div class="progress-meta"><span id="exp_budget_label">Budget: $24,000</span><span class="progress-pct" id="expenses_pct">100%</span></div>
-        <div class="progress-bar thick"><div class="progress-fill fill-danger" id="expenses_bar" style="width: 100%;"></div></div>
+      <div class="section-header">
+        <div class="field-label">Monthly Expenses</div>
+        <button class="section-vis-btn" onclick="hideSectionDirect('section-expenses')" title="Hide this section"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
       </div>
-      <div id="expenses_badge" class="stat-badge badge-danger">Over by $431</div>
+      <div class="progress-wrap">
+        <div class="progress-meta"><span id="exp_budget_label">Budget: $0</span><span class="progress-pct" id="expenses_pct">0%</span></div>
+        <div class="progress-bar thick"><div class="progress-fill fill-blue" id="expenses_bar" style="width:0%"></div></div>
+      </div>
+      <div id="expenses_badge" class="stat-badge badge-green">Under budget</div>
     </div>
     <div>
       <div class="sublabel" style="text-align:right">Actual</div>
@@ -405,10 +429,13 @@ header h1 span{color:var(--green)}
   <hr class="section-divider">
   </div>
 
-  <div id="section-savings-rate">
+  <div id="section-savings-rate" class="builtin-section">
   <!-- Savings Rate — calculated from contributions -->
   <div style="width:100%">
-    <div class="field-label" style="margin-bottom:8px">Annual Savings Contributions</div>
+    <div class="section-header" style="margin-bottom:8px">
+      <div class="field-label">Annual Savings Contributions</div>
+      <button class="section-vis-btn" onclick="hideSectionDirect('section-savings-rate')" title="Hide this section"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
+    </div>
     <div class="contrib-row">
       <span class="contrib-label">401k — Spouse 1</span>
       <div class="iw">
@@ -473,25 +500,33 @@ header h1 span{color:var(--green)}
       </div>
     </div>
     <div style="margin-top:8px;padding-top:6px;border-top:1px dashed var(--border);display:flex;justify-content:space-between;align-items:center">
-      <span class="field-label" id="sr_income_label">Total / $625K income</span>
-      <span style="font-size:.9rem;font-weight:700;color:var(--navy)" id="sr_total_display">$7,084</span>
+      <span class="field-label" id="sr_income_label">Total / $0 income</span>
+      <span style="font-size:.9rem;font-weight:700;color:var(--navy)" id="sr_total_display">$0</span>
     </div>
-    <div id="savings_rate_badge" class="stat-badge badge-danger">18.9% below target</div>
+    <div id="savings_rate_badge" class="stat-badge badge-warn">0% below target</div>
     <div class="progress-wrap" style="margin-top:8px">
-      <div class="progress-meta"><span id="sr_bar_label">Savings Rate vs 20% Target</span><span class="progress-pct" id="sr_rate_pct">1.1%</span></div>
-      <div class="progress-bar thick"><div class="progress-fill fill-danger" id="sr_rate_bar" style="width: 5.6672%;"></div></div>
+      <div class="progress-meta"><span id="sr_bar_label">Savings Rate vs 20% Target</span><span class="progress-pct" id="sr_rate_pct">0%</span></div>
+      <div class="progress-bar thick"><div class="progress-fill fill-warn" id="sr_rate_bar" style="width:0%"></div></div>
     </div>
   </div>
   </div>
   <div id="ci-panel-household"></div>
   <button class="add-item-btn" onclick="openAddItem('panel-household')">+ Add Item</button>
-</div><div class="card" id="panel-retirement">
+</div>
+
+<!-- ══════════════════════════════════════════
+     ROW 2, COL 1 — RETIREMENT
+═══════════════════════════════════════════ -->
+<div class="card" id="panel-retirement">
   <div class="card-title"><span class="drag-handle" title="Drag to reorder">⠿</span>Retirement<button class="panel-hide-btn" onclick="hideBuiltinPanel('panel-retirement')" title="Hide panel">×</button></div>
 
-  <div id="section-ret-savings">
+  <div id="section-ret-savings" class="builtin-section">
   <!-- Retirement Savings -->
   <div style="margin-bottom:12px">
-    <div class="field-label">Retirement Savings</div>
+    <div class="section-header">
+      <div class="field-label">Retirement Savings</div>
+      <button class="section-vis-btn" onclick="hideSectionDirect('section-ret-savings')" title="Hide this section"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
+    </div>
     <div class="iw" style="margin-bottom:6px">
       <button class="inc-btn" onclick="inc('retirement_savings','money',-100)">−</button>
       <input type="text" id="retirement_savings" value="$0" data-raw="0" oninput="handleMoney(this)" onchange="recalc()">
@@ -499,18 +534,21 @@ header h1 span{color:var(--green)}
       <button class="calc-btn" onclick="openCalc('retirement_savings','Retirement Savings')">⊞</button>
     </div>
     <div class="progress-wrap">
-      <div class="progress-meta"><span id="ret_target_label">Target: $2,400,000</span><span class="progress-pct" id="retirement_pct">28.3%</span></div>
-      <div class="progress-bar thick"><div class="progress-fill fill-green" id="retirement_bar" style="width: 28.2535%;"></div></div>
+      <div class="progress-meta"><span id="ret_target_label">Target: $0</span><span class="progress-pct" id="retirement_pct">0%</span></div>
+      <div class="progress-bar thick"><div class="progress-fill fill-green" id="retirement_bar" style="width:0%"></div></div>
     </div>
-    <div class="tip">3× $800K salary estimate</div>
+    <div class="tip">Fidelity guideline: 1× salary by 30, 3× by 40, 6× by 50, 10× by retirement</div>
   </div>
 
   <hr class="section-divider">
   </div>
 
-  <div id="section-roth">
+  <div id="section-roth" class="builtin-section">
   <!-- Backdoor Roth -->
-  <div class="field-label" style="margin-bottom:12px">Backdoor Roth IRA — <span id="roth_combined_target_label">Target: $14,000 combined</span></div>
+  <div class="section-header" style="margin-bottom:12px">
+    <div class="field-label">Backdoor Roth IRA — <span id="roth_combined_target_label">Target: $14,000 combined</span></div>
+    <button class="section-vis-btn" onclick="hideSectionDirect('section-roth')" title="Hide this section"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
+  </div>
 
   <div class="two-col">
     <!-- Spouse 1 -->
@@ -551,13 +589,21 @@ header h1 span{color:var(--green)}
   </div>
   <div id="ci-panel-retirement"></div>
   <button class="add-item-btn" onclick="openAddItem('panel-retirement')">+ Add Item</button>
-</div><div class="card" id="panel-savings">
+</div>
+
+<!-- ══════════════════════════════════════════
+     ROW 2, COL 2 — SAVINGS GOALS
+═══════════════════════════════════════════ -->
+<div class="card" id="panel-savings">
   <div class="card-title"><span class="drag-handle" title="Drag to reorder">⠿</span>Savings Goals<button class="panel-hide-btn" onclick="hideBuiltinPanel('panel-savings')" title="Hide panel">×</button></div>
 
-  <div id="section-emergency">
+  <div id="section-emergency" class="builtin-section">
   <!-- Emergency Fund -->
   <div style="margin-bottom:12px">
-    <div class="field-label">Emergency Fund</div>
+    <div class="section-header">
+      <div class="field-label">Emergency Fund</div>
+      <button class="section-vis-btn" onclick="hideSectionDirect('section-emergency')" title="Hide this section"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
+    </div>
     <div class="iw" style="margin-bottom:6px">
       <button class="inc-btn" onclick="inc('emergency_fund','money',-100)">−</button>
       <input type="text" id="emergency_fund" value="$0" data-raw="0" oninput="handleMoney(this)" onchange="recalc()">
@@ -566,15 +612,15 @@ header h1 span{color:var(--green)}
     </div>
     <div style="display:flex;align-items:center;gap:8px;margin-top:6px">
       <div class="bcv-track" style="flex:1;margin-top:0">
-        <div class="bcv-fill fill-teal" id="emerg_bcv" style="width: 39.6567%;">
-          <span class="bcv-fill-label" id="emerg_bcv_label">$57,106</span>
+        <div class="bcv-fill fill-teal" id="emerg_bcv" style="width:0%">
+          <span class="bcv-fill-label" id="emerg_bcv_label"></span>
         </div>
       </div>
-      <span class="progress-pct" id="emerg_pct" style="white-space:nowrap;text-align:right">39.7%</span>
+      <span class="progress-pct" id="emerg_pct" style="white-space:nowrap;text-align:right">0%</span>
     </div>
     <div class="bcv-meta">
-      <span><b id="emerg_cur">$57,106</b> saved</span>
-      <span>Target: <b id="emerg_target_label">$144,000</b></span>
+      <span><b id="emerg_cur">$0</b> saved</span>
+      <span>Target: <b id="emerg_target_label">$0</b></span>
     </div>
     <div class="tip">~6 months expenses</div>
   </div>
@@ -582,10 +628,13 @@ header h1 span{color:var(--green)}
   <hr class="section-divider">
   </div>
 
-  <div id="section-tax-reserve">
+  <div id="section-tax-reserve" class="builtin-section">
   <!-- Forgiveness Tax Reserve -->
   <div>
-    <div class="field-label">Forgiveness Tax Reserve</div>
+    <div class="section-header">
+      <div class="field-label">Forgiveness Tax Reserve</div>
+      <button class="section-vis-btn" onclick="hideSectionDirect('section-tax-reserve')" title="Hide this section"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
+    </div>
     <div class="iw" style="margin-bottom:6px">
       <button class="inc-btn" onclick="inc('tax_reserve','money',-100)">−</button>
       <input type="text" id="tax_reserve" value="$0" data-raw="0" oninput="handleMoney(this)" onchange="recalc()">
@@ -602,27 +651,35 @@ header h1 span{color:var(--green)}
     </div>
     <div class="bcv-meta">
       <span><b id="taxres_cur">$0</b> saved</span>
-      <span>Target: <b id="taxres_target_label">$35,000</b></span>
+      <span>Target: <b id="taxres_target_label">$0</b></span>
     </div>
     <div class="tip">Student loan forgiveness tax liability</div>
   </div>
   </div>
   <div id="ci-panel-savings"></div>
   <button class="add-item-btn" onclick="openAddItem('panel-savings')">+ Add Item</button>
-</div><div class="card" id="panel-loans">
+</div>
+
+<!-- ══════════════════════════════════════════
+     ROW 3, COL 1 — STUDENT LOANS
+═══════════════════════════════════════════ -->
+<div class="card" id="panel-loans">
   <div class="card-title"><span class="drag-handle" title="Drag to reorder">⠿</span>Student Loans<button class="panel-hide-btn" onclick="hideBuiltinPanel('panel-loans')" title="Hide panel">×</button></div>
 
-  <div id="section-loans">
+  <div id="section-loans" class="builtin-section">
   <div class="field-row">
     <div class="field-content">
-      <div class="field-label">Current Loan Balance</div>
+      <div class="section-header">
+        <div class="field-label">Current Loan Balance</div>
+        <button class="section-vis-btn" onclick="hideSectionDirect('section-loans')" title="Hide this section"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
+      </div>
       <div id="loan_balance_badge" class="stat-badge badge-warn">Active</div>
     </div>
     <div>
       <div class="sublabel" style="text-align:right">Balance</div>
       <div class="iw">
         <button class="inc-btn" onclick="inc('loan_balance','money',-100)">−</button>
-        <input type="text" id="loan_balance" value="$121,738" data-raw="121738" oninput="handleMoney(this)" onchange="recalc()">
+        <input type="text" id="loan_balance" value="$0" data-raw="0" oninput="handleMoney(this)" onchange="recalc()">
         <button class="inc-btn" onclick="inc('loan_balance','money',100)">+</button>
         <button class="calc-btn" onclick="openCalc('loan_balance','Loan Balance')">⊞</button>
       </div>
@@ -632,25 +689,28 @@ header h1 span{color:var(--green)}
   <hr class="section-divider">
   </div>
 
-  <div id="section-ibr">
-  <div class="field-label" style="margin-bottom:10px">IBR Qualifying Payments</div>
+  <div id="section-ibr" class="builtin-section">
+  <div class="section-header" style="margin-bottom:10px">
+    <div class="field-label">IBR Qualifying Payments</div>
+    <button class="section-vis-btn" onclick="hideSectionDirect('section-ibr')" title="Hide this section"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
+  </div>
 
   <div style="padding-top:4px">
     <div class="loan-counter">
-      <span id="ibr_display">157</span> payments made&nbsp;&nbsp;
-      <span id="ibr_remaining">143</span> remaining&nbsp;&nbsp;
-      Est. <span id="ibr_years">~11.9 yrs</span> to forgiveness
+      <span id="ibr_display">0</span> payments made&nbsp;&nbsp;
+      <span id="ibr_remaining">300</span> remaining&nbsp;&nbsp;
+      Est. <span id="ibr_years">~25.0 yrs</span> to forgiveness
     </div>
     <div class="progress-wrap" style="margin-top:10px">
-      <div class="progress-meta"><span id="ibr_bar_label">IBR Progress (of 300)</span><span class="progress-pct" id="ibr_pct">52.3%</span></div>
-      <div class="progress-bar thick"><div class="progress-fill fill-blue" id="ibr_bar" style="width: 52.3333%;"></div></div>
+      <div class="progress-meta"><span id="ibr_bar_label">IBR Progress (of 300)</span><span class="progress-pct" id="ibr_pct">0%</span></div>
+      <div class="progress-bar thick"><div class="progress-fill fill-blue" id="ibr_bar" style="width:0%"></div></div>
     </div>
     <div class="two-col" style="margin-top:14px;gap:8px">
       <div>
         <div class="sublabel">Payments Made</div>
         <div class="iw" style="flex-direction:column;gap:3px;align-items:stretch">
           <div class="field-value">
-            <input type="number" id="ibr_made" value="157" min="0" max="300" oninput="recalc()" onchange="recalc()">
+            <input type="number" id="ibr_made" value="0" min="0" max="300" oninput="recalc()" onchange="recalc()">
           </div>
           <div style="display:flex;gap:3px">
             <button class="inc-btn" style="flex:1" onclick="inc('ibr_made','count',-1)">−</button>
@@ -675,14 +735,22 @@ header h1 span{color:var(--green)}
   </div>
   <div id="ci-panel-loans"></div>
   <button class="add-item-btn" onclick="openAddItem('panel-loans')">+ Add Item</button>
-</div><div class="card" id="panel-kids">
+</div>
+
+<!-- ══════════════════════════════════════════
+     ROW 3, COL 2 — KIDS EDUCATION
+═══════════════════════════════════════════ -->
+<div class="card" id="panel-kids">
   <div class="card-title"><span class="drag-handle" title="Drag to reorder">⠿</span>Kids Education<button class="panel-hide-btn" onclick="hideBuiltinPanel('panel-kids')" title="Hide panel">×</button></div>
 
   <div class="two-col">
 
     <!-- Child 1 -->
-    <div id="section-child1">
-      <div class="field-label" style="margin-bottom:10px">Child 1</div>
+    <div id="section-child1" class="builtin-section">
+      <div class="section-header" style="margin-bottom:10px">
+        <div class="field-label">Child 1</div>
+        <button class="section-vis-btn" onclick="hideSectionDirect('section-child1')" title="Hide this section"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
+      </div>
 
       <div class="sublabel">529 Plan</div>
       <div class="iw" style="margin-bottom:6px">
@@ -701,24 +769,27 @@ header h1 span{color:var(--green)}
       </div>
 
       <div class="bcv-track">
-        <div class="bcv-fill fill-green" id="c1_bcv" style="width: 43.3345%;">
-          <span class="bcv-fill-label" id="c1_bcv_label">$23,834</span>
+        <div class="bcv-fill fill-green" id="c1_bcv" style="width:0%">
+          <span class="bcv-fill-label" id="c1_bcv_label"></span>
         </div>
       </div>
       <div class="bcv-meta">
-        <span><b id="c1_total_val">$23,834</b></span>
+        <span><b id="c1_total_val">$0</b></span>
         <span>/ <b id="c1_target_label">$55,000</b></span>
       </div>
       <div class="progress-meta" style="margin-top:5px">
         <span>Progress</span>
-        <span class="progress-pct" id="c1_pct">43.3%</span>
+        <span class="progress-pct" id="c1_pct">0%</span>
       </div>
-      <div class="progress-bar slim"><div class="progress-fill fill-green" id="c1_bar" style="width: 43.3345%;"></div></div>
+      <div class="progress-bar slim"><div class="progress-fill fill-green" id="c1_bar" style="width:0%"></div></div>
     </div>
 
     <!-- Child 2 -->
-    <div id="section-child2">
-      <div class="field-label" style="margin-bottom:10px">Child 2</div>
+    <div id="section-child2" class="builtin-section">
+      <div class="section-header" style="margin-bottom:10px">
+        <div class="field-label">Child 2</div>
+        <button class="section-vis-btn" onclick="hideSectionDirect('section-child2')" title="Hide this section"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
+      </div>
 
       <div class="sublabel">529 Plan</div>
       <div class="iw" style="margin-bottom:6px">
@@ -737,25 +808,27 @@ header h1 span{color:var(--green)}
       </div>
 
       <div class="bcv-track">
-        <div class="bcv-fill fill-green" id="c2_bcv" style="width: 26.0138%;">
-          <span class="bcv-fill-label" id="c2_bcv_label">$14,308</span>
+        <div class="bcv-fill fill-green" id="c2_bcv" style="width:0%">
+          <span class="bcv-fill-label" id="c2_bcv_label"></span>
         </div>
       </div>
       <div class="bcv-meta">
-        <span><b id="c2_total_val">$14,308</b></span>
+        <span><b id="c2_total_val">$0</b></span>
         <span>/ <b id="c2_target_label">$55,000</b></span>
       </div>
       <div class="progress-meta" style="margin-top:5px">
         <span>Progress</span>
-        <span class="progress-pct" id="c2_pct">26%</span>
+        <span class="progress-pct" id="c2_pct">0%</span>
       </div>
-      <div class="progress-bar slim"><div class="progress-fill fill-green" id="c2_bar" style="width: 26.0138%;"></div></div>
+      <div class="progress-bar slim"><div class="progress-fill fill-green" id="c2_bar" style="width:0%"></div></div>
     </div>
 
   </div>
   <div class="two-col" id="kids-custom-children" style="margin-top:12px"></div>
   <button class="add-item-btn" onclick="openAddChild()">+ Add Child</button>
-</div></div><!-- /grid -->
+</div>
+
+</div><!-- /grid -->
 
 <div id="custom-panels-grid" style="display:none"></div>
 <div style="display:flex;justify-content:center;margin-top:18px">
@@ -771,55 +844,93 @@ header h1 span{color:var(--green)}
     </div>
     <div class="targets-body">
       <div class="trow">
-        <span class="trow-label">Household Income</span>
+        <span class="trow-label-wrap">
+          <span class="trow-label">Household Income</span>
+          <button class="tip-icon" onmouseenter="showTargetTip(event,'Enter your total gross household income. This is used to calculate your savings rate percentage.')" onmouseleave="hideTargetTip()">i</button>
+        </span>
         <input type="text" id="t_income" value="$0">
       </div>
       <div class="trow">
-        <span class="trow-label">Savings Rate Target</span>
+        <span class="trow-label-wrap">
+          <span class="trow-label">Savings Rate Target</span>
+          <button class="tip-icon" onmouseenter="showTargetTip(event,'Financial planners recommend saving 15–20% of gross income. 20% is the target for those starting later or with higher goals.')" onmouseleave="hideTargetTip()">i</button>
+        </span>
         <input type="text" id="t_sr_pct" value="20%">
       </div>
       <div class="trow">
-        <span class="trow-label">Monthly Expenses Budget</span>
+        <span class="trow-label-wrap">
+          <span class="trow-label">Monthly Expenses Budget</span>
+          <button class="tip-icon" onmouseenter="showTargetTip(event,'No universal target — track your actual spending for 3 months to establish your baseline budget, then set a goal to reduce it.')" onmouseleave="hideTargetTip()">i</button>
+        </span>
         <input type="text" id="t_expenses" value="$0">
       </div>
       <div class="trow">
-        <span class="trow-label">Emergency Fund Target</span>
+        <span class="trow-label-wrap">
+          <span class="trow-label">Emergency Fund Target</span>
+          <button class="tip-icon" onmouseenter="showTargetTip(event,'3–6 months of expenses is standard. Choose 6 months if you have variable income, dependents, or a specialized career. Set to 6× your monthly expenses.')" onmouseleave="hideTargetTip()">i</button>
+        </span>
         <input type="text" id="t_emergency" value="$0">
       </div>
       <div class="trow">
-        <span class="trow-label">Forgiveness Tax Reserve</span>
+        <span class="trow-label-wrap">
+          <span class="trow-label">Forgiveness Tax Reserve</span>
+          <button class="tip-icon" onmouseenter="showTargetTip(event,'IBR forgiven amounts are taxable as ordinary income. Save 20–30% of your projected forgiven balance depending on your tax bracket. 25% is a reasonable middle estimate.')" onmouseleave="hideTargetTip()">i</button>
+        </span>
         <input type="text" id="t_tax_reserve" value="$0">
       </div>
       <div class="trow">
-        <span class="trow-label">Retirement Target</span>
+        <span class="trow-label-wrap">
+          <span class="trow-label">Retirement Target</span>
+          <button class="tip-icon" onmouseenter="showTargetTip(event,'Fidelity guidelines: save 1× salary by 30, 3× by 40, 6× by 50, 8× by 60, and 10× your final salary by retirement.')" onmouseleave="hideTargetTip()">i</button>
+        </span>
         <input type="text" id="t_retirement" value="$0">
       </div>
       <div class="trow">
-        <span class="trow-label">Roth IRA Target per Spouse</span>
+        <span class="trow-label-wrap">
+          <span class="trow-label">Backdoor Roth per Spouse</span>
+          <button class="tip-icon" onmouseenter="showTargetTip(event,'2025 IRS annual Roth IRA contribution limit is $7,000. Increases periodically with inflation. Use backdoor Roth if income exceeds $236,000 married filing jointly.')" onmouseleave="hideTargetTip()">i</button>
+        </span>
         <input type="text" id="t_roth" value="$7,000">
       </div>
       <div class="trow">
-        <span class="trow-label">IBR Total Payments</span>
+        <span class="trow-label-wrap">
+          <span class="trow-label">IBR Total Payments</span>
+          <button class="tip-icon" onmouseenter="showTargetTip(event,'Original IBR forgiveness at 25 years (300 monthly payments) for graduate loans. New IBR is 20 years (240 payments) for undergraduate-only borrowers.')" onmouseleave="hideTargetTip()">i</button>
+        </span>
         <input type="number" id="t_ibr_total" value="300" min="1" style="text-align:right">
       </div>
       <div class="trow">
-        <span class="trow-label">Kids Education per Child</span>
-        <input type="text" id="t_kids" value="$0">
+        <span class="trow-label-wrap">
+          <span class="trow-label">Kids Education per Child</span>
+          <button class="tip-icon" onmouseenter="showTargetTip(event,'529 savings goal varies by school type. Target $55,000 for in-state public, $120,000 for private. Aim to cover ~50% of projected costs with savings.')" onmouseleave="hideTargetTip()">i</button>
+        </span>
+        <input type="text" id="t_kids" value="$55,000">
       </div>
       <div style="border-top:1px solid var(--border);margin-top:4px;padding-top:12px">
         <div style="font-size:.7rem;font-weight:800;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);margin-bottom:8px">Show / Hide Sections</div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:2px">
-          <label class="vis-toggle"><input type="checkbox" id="vis-net-worth" checked="" onchange="toggleSection('section-net-worth',this)"> Net Worth</label>
-          <label class="vis-toggle"><input type="checkbox" id="vis-expenses" checked="" onchange="toggleSection('section-expenses',this)"> Monthly Expenses</label>
-          <label class="vis-toggle"><input type="checkbox" id="vis-savings-rate" checked="" onchange="toggleSection('section-savings-rate',this)"> Savings Rate</label>
-          <label class="vis-toggle"><input type="checkbox" id="vis-ret-savings" checked="" onchange="toggleSection('section-ret-savings',this)"> Retirement Savings</label>
-          <label class="vis-toggle"><input type="checkbox" id="vis-roth" checked="" onchange="toggleSection('section-roth',this)"> Backdoor Roth</label>
-          <label class="vis-toggle"><input type="checkbox" id="vis-emergency" checked="" onchange="toggleSection('section-emergency',this)"> Emergency Fund</label>
-          <label class="vis-toggle"><input type="checkbox" id="vis-tax-reserve" checked="" onchange="toggleSection('section-tax-reserve',this)"> Tax Reserve</label>
-          <label class="vis-toggle"><input type="checkbox" id="vis-loans" checked="" onchange="toggleSection('section-loans',this)"> Loan Balance</label>
-          <label class="vis-toggle"><input type="checkbox" id="vis-ibr" checked="" onchange="toggleSection('section-ibr',this)"> IBR Payments</label>
-          <label class="vis-toggle"><input type="checkbox" id="vis-child1" checked="" onchange="toggleSection('section-child1',this)"> Child 1</label>
-          <label class="vis-toggle"><input type="checkbox" id="vis-child2" checked="" onchange="toggleSection('section-child2',this)"> Child 2</label>
+          <label class="vis-toggle"><input type="checkbox" id="vis-net-worth" checked onchange="toggleSection('section-net-worth',this)"> Net Worth</label>
+          <label class="vis-toggle"><input type="checkbox" id="vis-expenses" checked onchange="toggleSection('section-expenses',this)"> Monthly Expenses</label>
+          <label class="vis-toggle"><input type="checkbox" id="vis-savings-rate" checked onchange="toggleSection('section-savings-rate',this)"> Savings Rate</label>
+          <label class="vis-toggle"><input type="checkbox" id="vis-ret-savings" checked onchange="toggleSection('section-ret-savings',this)"> Retirement Savings</label>
+          <label class="vis-toggle"><input type="checkbox" id="vis-roth" checked onchange="toggleSection('section-roth',this)"> Backdoor Roth</label>
+          <label class="vis-toggle"><input type="checkbox" id="vis-emergency" checked onchange="toggleSection('section-emergency',this)"> Emergency Fund</label>
+          <label class="vis-toggle"><input type="checkbox" id="vis-tax-reserve" checked onchange="toggleSection('section-tax-reserve',this)"> Tax Reserve</label>
+          <label class="vis-toggle"><input type="checkbox" id="vis-loans" checked onchange="toggleSection('section-loans',this)"> Loan Balance</label>
+          <label class="vis-toggle"><input type="checkbox" id="vis-ibr" checked onchange="toggleSection('section-ibr',this)"> IBR Payments</label>
+          <label class="vis-toggle"><input type="checkbox" id="vis-child1" checked onchange="toggleSection('section-child1',this)"> Child 1</label>
+          <label class="vis-toggle"><input type="checkbox" id="vis-child2" checked onchange="toggleSection('section-child2',this)"> Child 2</label>
+        </div>
+        <div style="font-size:.7rem;font-weight:800;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);margin-bottom:8px;margin-top:10px">Show / Hide Summary Tiles</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:2px">
+          <label class="vis-toggle"><input type="checkbox" id="vis-sumtile-net-worth" checked onchange="toggleSection('sumtile-net-worth',this)"> Net Worth</label>
+          <label class="vis-toggle"><input type="checkbox" id="vis-sumtile-savings-rate" checked onchange="toggleSection('sumtile-savings-rate',this)"> Savings Rate</label>
+          <label class="vis-toggle"><input type="checkbox" id="vis-sumtile-expenses" checked onchange="toggleSection('sumtile-expenses',this)"> Monthly Expenses</label>
+          <label class="vis-toggle"><input type="checkbox" id="vis-sumtile-roth" checked onchange="toggleSection('sumtile-roth',this)"> Roth IRA</label>
+          <label class="vis-toggle"><input type="checkbox" id="vis-sumtile-emergency" checked onchange="toggleSection('sumtile-emergency',this)"> Emergency Fund</label>
+          <label class="vis-toggle"><input type="checkbox" id="vis-sumtile-retirement" checked onchange="toggleSection('sumtile-retirement',this)"> Retirement</label>
+          <label class="vis-toggle"><input type="checkbox" id="vis-sumtile-ibr" checked onchange="toggleSection('sumtile-ibr',this)"> IBR Progress</label>
+          <label class="vis-toggle"><input type="checkbox" id="vis-sumtile-loan" checked onchange="toggleSection('sumtile-loan',this)"> Loan Balance</label>
         </div>
       </div>
     </div>
@@ -846,9 +957,9 @@ header h1 span{color:var(--green)}
     </div>
     <div class="calc-grid">
       <button class="cb-clear" onclick="calcPress('C')">C</button>
-      <button class="cb-op" onclick="calcPress('±')">±</button>
-      <button class="cb-op" onclick="calcPress('%')">%</button>
-      <button class="cb-op" onclick="calcPress('÷')">÷</button>
+      <button class="cb-op"    onclick="calcPress('±')">±</button>
+      <button class="cb-op"    onclick="calcPress('%')">%</button>
+      <button class="cb-op"    onclick="calcPress('÷')">÷</button>
       <button onclick="calcPress('7')">7</button>
       <button onclick="calcPress('8')">8</button>
       <button onclick="calcPress('9')">9</button>
@@ -968,8 +1079,11 @@ header h1 span{color:var(--green)}
   </div>
 </div>
 
+<!-- Target guidance tooltip -->
+<div id="tgt-tip"></div>
+
 <!-- ══ RESET CONFIRMATION MODAL ══ -->
-<div class="cust-overlay" id="reset-overlay" onclick="if(event.target.id==='reset-overlay')closeResetModal()">
+<div class="cust-overlay hidden" id="reset-overlay" onclick="if(event.target.id==='reset-overlay')closeResetModal()">
   <div class="cust-popup" onclick="event.stopPropagation()" style="width:400px">
     <div class="cust-hd" style="background:var(--danger)">
       <span>Reset Dashboard</span>
@@ -984,8 +1098,8 @@ header h1 span{color:var(--green)}
       </div>
     </div>
     <div class="cust-ft" style="flex-direction:column;gap:8px">
-      <button onclick="performReset()" style="padding: 10px; background: var(--danger); color: rgb(255, 255, 255); border: none; border-radius: 7px; font-size: 0.85rem; font-weight: 700; cursor: pointer; width: 100%; transition: opacity 0.15s; opacity: 1;" onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">Reset Dashboard</button>
-      <button onclick="exportBlankTemplate()" style="padding: 10px; background: var(--navy); color: rgb(255, 255, 255); border: none; border-radius: 7px; font-size: 0.85rem; font-weight: 700; cursor: pointer; width: 100%; transition: opacity 0.15s; opacity: 0.85;" onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">Export Blank Template</button>
+      <button onclick="performReset()" style="padding:10px;background:var(--danger);color:#fff;border:none;border-radius:7px;font-size:.85rem;font-weight:700;cursor:pointer;width:100%;transition:opacity .15s" onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">Reset Dashboard</button>
+      <button onclick="exportBlankTemplate()" style="padding:10px;background:var(--navy);color:#fff;border:none;border-radius:7px;font-size:.85rem;font-weight:700;cursor:pointer;width:100%;transition:opacity .15s" onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">Export Blank Template</button>
       <button class="cust-cancel" onclick="closeResetModal()" style="width:100%;text-align:center">Cancel</button>
     </div>
   </div>
@@ -1006,7 +1120,7 @@ const DEFAULT_TARGETS = {
   retirement: 0,
   roth_per_spouse: 7000,
   ibr_total: 300,
-  kids_education: 0
+  kids_education: 55000
 };
 let targets = Object.assign({}, DEFAULT_TARGETS);
 
@@ -1101,7 +1215,8 @@ function fmtPct(n, decimals) {
 function setBar(id, pct, cls) {
   const el = document.getElementById(id);
   if (!el) return;
-  el.style.width = Math.min(100, Math.max(0, pct)) + '%';
+  const safe = (isNaN(pct) || !isFinite(pct)) ? 0 : Math.min(100, Math.max(0, pct));
+  el.style.width = safe + '%';
   ['fill-green','fill-blue','fill-warn','fill-danger','fill-purple','fill-teal'].forEach(c => el.classList.remove(c));
   el.classList.add(cls);
 }
@@ -1120,7 +1235,7 @@ function setBadge(id, txt, cls) {
   el.className = 'stat-badge ' + cls;
 }
 function setBcv(bcvId, lblId, curId, val, target, cls) {
-  const pct = Math.min(100, (val / target) * 100);
+  const pct = (target > 0) ? Math.min(100, (val / target) * 100) : 0;
   const bcv = document.getElementById(bcvId);
   if (bcv) {
     bcv.style.width = pct + '%';
@@ -1185,12 +1300,13 @@ function recalc() {
   yoyEl.className = 'stat-badge ' + (yoyVal >= 0 ? 'badge-green' : 'badge-danger');
 
   const expenses = parseMoney(document.getElementById('monthly_expenses').value);
-  const expPct   = (expenses / T.expenses) * 100;
+  const expPct   = T.expenses > 0 ? (expenses / T.expenses) * 100 : 0;
   setPct('expenses_pct', expPct);
   setBar('expenses_bar', expPct, expPct > 100 ? 'fill-danger' : expPct > 85 ? 'fill-warn' : 'fill-blue');
   setBadge('expenses_badge',
+    T.expenses === 0 ? 'Set budget in Edit Targets to track' :
     expenses <= T.expenses ? 'Under by ' + fmt(T.expenses - expenses) : 'Over by ' + fmt(expenses - T.expenses),
-    expenses <= T.expenses ? 'badge-green' : 'badge-danger'
+    T.expenses === 0 ? 'badge-blue' : expenses <= T.expenses ? 'badge-green' : 'badge-danger'
   );
 
   // ── Savings Rate ──
@@ -1202,30 +1318,31 @@ function recalc() {
   const sForgive= parseMoney(document.getElementById('sr_forgive').value);
   const sBrok   = parseMoney(document.getElementById('sr_brokerage').value);
   const totalContrib = s401s1 + s401s2 + sRs1 + sRs2 + sEmerg + sForgive + sBrok;
-  const srPctCalc = (totalContrib / T.income) * 100;
+  const srPctCalc = T.income > 0 ? (totalContrib / T.income) * 100 : 0;
   const srTarget  = T.sr_pct;
   setTxt('sr_total_display', fmt(totalContrib));
   setBadge('savings_rate_badge',
+    T.income === 0 ? 'Set income in Edit Targets to track' :
     srPctCalc >= srTarget ? fmtPct(srPctCalc - srTarget) + ' above target' : fmtPct(srTarget - srPctCalc) + ' below target',
-    srPctCalc >= srTarget ? 'badge-green' : srPctCalc >= 10 ? 'badge-warn' : 'badge-danger'
+    T.income === 0 ? 'badge-blue' : srPctCalc >= srTarget ? 'badge-green' : srPctCalc >= 10 ? 'badge-warn' : 'badge-danger'
   );
-  const srBarFill = (srPctCalc / srTarget) * 100;
+  const srBarFill = T.income > 0 ? (srPctCalc / srTarget) * 100 : 0;
   const srBarCls  = srPctCalc >= srTarget ? 'fill-green' : srPctCalc >= srTarget * 0.5 ? 'fill-warn' : 'fill-danger';
   setBar('sr_rate_bar', srBarFill, srBarCls);
-  setTxt('sr_rate_pct', fmtPct(srPctCalc));
+  setTxt('sr_rate_pct', T.income > 0 ? fmtPct(srPctCalc) : '—');
 
   // ── Retirement ──
   const retSav = parseMoney(document.getElementById('retirement_savings').value);
-  const retPct = (retSav / T.retirement) * 100;
+  const retPct = T.retirement > 0 ? (retSav / T.retirement) * 100 : 0;
   setPct('retirement_pct', retPct);
   setBar('retirement_bar', retPct, 'fill-green');
 
   // ── Roth ──
   const rothS1 = parseMoney(document.getElementById('roth_s1').value);
   const rothS2 = parseMoney(document.getElementById('roth_s2').value);
-  const s1Pct  = (rothS1 / T.roth_per_spouse) * 100;
-  const s2Pct  = (rothS2 / T.roth_per_spouse) * 100;
-  const cPct   = ((rothS1 + rothS2) / (T.roth_per_spouse * 2)) * 100;
+  const s1Pct  = T.roth_per_spouse > 0 ? (rothS1 / T.roth_per_spouse) * 100 : 0;
+  const s2Pct  = T.roth_per_spouse > 0 ? (rothS2 / T.roth_per_spouse) * 100 : 0;
+  const cPct   = T.roth_per_spouse > 0 ? ((rothS1 + rothS2) / (T.roth_per_spouse * 2)) * 100 : 0;
   setPct('roth_s1_pct', s1Pct);
   setBar('roth_s1_bar', s1Pct, 'fill-purple');
   setPct('roth_s2_pct', s2Pct);
@@ -1235,12 +1352,12 @@ function recalc() {
 
   // ── Savings Goals ──
   const emFund = parseMoney(document.getElementById('emergency_fund').value);
-  const emPct  = (emFund / T.emergency_fund) * 100;
+  const emPct  = T.emergency_fund > 0 ? (emFund / T.emergency_fund) * 100 : 0;
   setBcv('emerg_bcv','emerg_bcv_label','emerg_cur', emFund, T.emergency_fund, 'fill-teal');
   setPct('emerg_pct', emPct);
 
   const taxRes = parseMoney(document.getElementById('tax_reserve').value);
-  const taxPct = (taxRes / T.tax_reserve) * 100;
+  const taxPct = T.tax_reserve > 0 ? (taxRes / T.tax_reserve) * 100 : 0;
   setBcv('taxres_bcv','taxres_bcv_label','taxres_cur', taxRes, T.tax_reserve, taxPct >= 100 ? 'fill-green' : 'fill-warn');
   setPct('taxres_pct', taxPct);
 
@@ -1258,7 +1375,8 @@ function recalc() {
   // ── Kids Education ──
   const c1t = parseMoney(document.getElementById('c1_529').value) + parseMoney(document.getElementById('c1_utma').value);
   const c2t = parseMoney(document.getElementById('c2_529').value) + parseMoney(document.getElementById('c2_utma').value);
-  const c1p = (c1t / T.kids_education) * 100, c2p = (c2t / T.kids_education) * 100;
+  const c1p = T.kids_education > 0 ? (c1t / T.kids_education) * 100 : 0;
+  const c2p = T.kids_education > 0 ? (c2t / T.kids_education) * 100 : 0;
   setPct('c1_pct', c1p); setBar('c1_bar', c1p, 'fill-green');
   setBcv('c1_bcv','c1_bcv_label',null, c1t, T.kids_education, 'fill-green');
   setTxt('c1_total_val', fmt(c1t));
@@ -1269,15 +1387,15 @@ function recalc() {
   // ── Summary tile ──
   setTxt('sum_net_worth', fmt(nw));
   setTxt('sum_yoy', 'YoY: ' + (yoyVal >= 0 ? '+' : '') + fmt(yoyVal) + ' (' + (yoyVal >= 0 ? '+' : '') + fmtPct(yoyPct) + ')');
-  setTxt('sum_sr', fmtPct(srPctCalc));
+  setTxt('sum_sr', T.income > 0 ? fmtPct(srPctCalc) : '—');
   const srEl = document.getElementById('sum_sr');
-  if (srEl) srEl.style.color = srPctCalc >= srTarget ? '#22a06b' : srPctCalc >= 10 ? '#d97706' : '#dc2626';
+  if (srEl) srEl.style.color = T.income === 0 ? '#64748b' : srPctCalc >= srTarget ? '#22a06b' : srPctCalc >= 10 ? '#d97706' : '#dc2626';
   setTxt('sum_sr_sub', 'Target: ' + srTarget + '%');
 
   setTxt('sum_exp_val', fmt(expenses));
   const expEl = document.getElementById('sum_exp_val');
-  if (expEl) expEl.style.color = expenses > T.expenses ? '#dc2626' : '#1a3a5c';
-  setTxt('sum_exp_sub', expenses <= T.expenses ? 'Under budget ✓' : 'Over ' + fmt(T.expenses) + ' budget');
+  if (expEl) expEl.style.color = T.expenses > 0 && expenses > T.expenses ? '#dc2626' : '#1a3a5c';
+  setTxt('sum_exp_sub', T.expenses === 0 ? 'No budget set' : expenses <= T.expenses ? 'Under budget ✓' : 'Over ' + fmt(T.expenses) + ' budget');
 
   setTxt('sum_roth_val', fmt(rothS1 + rothS2));
   setTxt('sum_roth_sub', fmtPct(cPct) + ' of ' + fmt(T.roth_per_spouse * 2));
@@ -1555,6 +1673,14 @@ const VIS_MAP = {
   'vis-ibr':          'section-ibr',
   'vis-child1':       'section-child1',
   'vis-child2':       'section-child2',
+  'vis-sumtile-net-worth':    'sumtile-net-worth',
+  'vis-sumtile-savings-rate': 'sumtile-savings-rate',
+  'vis-sumtile-expenses':     'sumtile-expenses',
+  'vis-sumtile-roth':         'sumtile-roth',
+  'vis-sumtile-emergency':    'sumtile-emergency',
+  'vis-sumtile-retirement':   'sumtile-retirement',
+  'vis-sumtile-ibr':          'sumtile-ibr',
+  'vis-sumtile-loan':         'sumtile-loan',
 };
 const hiddenSections = new Set();
 
@@ -1948,11 +2074,7 @@ function performReset() {
   if (ibrTotalEl) ibrTotalEl.value = '300';
 
   // Reset targets to generic defaults
-  Object.assign(targets, {
-    income: 0, sr_pct: 20, expenses: 0, emergency_fund: 0,
-    tax_reserve: 0, retirement: 0, roth_per_spouse: 7000,
-    ibr_total: 300, kids_education: 0
-  });
+  Object.assign(targets, Object.assign({}, DEFAULT_TARGETS));
   saveTargets();
 
   // Reset custom data
@@ -2001,7 +2123,7 @@ function exportBlankTemplate() {
   const tDefaults = {
     't_income':'$0', 't_sr_pct':'20%', 't_expenses':'$0',
     't_emergency':'$0', 't_tax_reserve':'$0', 't_retirement':'$0',
-    't_roth':'$7,000', 't_ibr_total':'300', 't_kids':'$0'
+    't_roth':'$7,000', 't_ibr_total':'300', 't_kids':'$55,000'
   };
   Object.entries(tDefaults).forEach(([id, val]) => {
     const el = doc.getElementById(id);
@@ -2021,7 +2143,7 @@ function exportBlankTemplate() {
   retirement: 0,
   roth_per_spouse: 7000,
   ibr_total: 300,
-  kids_education: 0
+  kids_education: 55000
 };`
   );
 
@@ -2037,7 +2159,39 @@ function exportBlankTemplate() {
   closeResetModal();
   showToast('Blank template downloaded');
 }
+
+// ════════════════════════════════════════════
+// SECTION HIDE (built-in sections, direct from eye button)
+function hideSectionDirect(sectionId) {
+  const el = document.getElementById(sectionId);
+  if (el) el.style.display = 'none';
+  hiddenSections.add(sectionId);
+  saveSectionVisibility();
+  updateVisCheckboxes();
+  showToast('Section hidden — restore in Edit Targets');
+}
+
+// ════════════════════════════════════════════
+// TARGET TOOLTIP
+function showTargetTip(event, text) {
+  const tip = document.getElementById('tgt-tip');
+  if (!tip) return;
+  tip.textContent = text;
+  tip.style.display = 'block';
+  const vw = window.innerWidth;
+  let x = event.clientX + 14;
+  if (x + 250 > vw) x = Math.max(6, event.clientX - 256);
+  tip.style.left = x + 'px';
+  tip.style.top = Math.max(6, event.clientY - 10) + 'px';
+}
+function hideTargetTip() {
+  const tip = document.getElementById('tgt-tip');
+  if (tip) tip.style.display = 'none';
+}
+
+// ════════════════════════════════════════════
+// PREVENT MODAL ON PAGE LOAD / BACK-FORWARD CACHE
+window.addEventListener('pageshow', () => { closeResetModal(); });
 </script>
-
-
-</body></html>
+</body>
+</html>
