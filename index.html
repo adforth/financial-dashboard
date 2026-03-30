@@ -290,6 +290,60 @@ header h1 span{color:var(--green)}
 .export-hist-btn:hover{background:var(--bg);border-color:var(--navy-light)}
 .history-no-snaps{text-align:center;padding:20px;font-size:.8rem;color:var(--muted);font-style:italic}
 
+/* ── Google Sheets sync indicator ── */
+.gs-sync-status{font-size:.72rem;font-weight:600;transition:color .3s}
+.gs-synced{color:var(--green)}
+.gs-saving{color:var(--muted)}
+.gs-error{color:var(--danger)}
+
+/* ── Google Sheets setup modal ── */
+.gs-overlay{position:fixed;inset:0;background:rgba(15,30,50,.45);display:flex;align-items:center;justify-content:center;z-index:3000;backdrop-filter:blur(3px)}
+.gs-overlay.hidden{display:none}
+.gs-popup{background:var(--card);border:1px solid var(--border);border-radius:18px;box-shadow:0 24px 72px rgba(26,58,92,.28);width:480px;max-width:calc(100vw - 32px);max-height:90vh;overflow-y:auto}
+.gs-header{background:linear-gradient(135deg,var(--navy),var(--navy-mid));color:#fff;padding:20px 22px 16px;border-radius:18px 18px 0 0}
+.gs-header-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:4px}
+.gs-header h2{font-size:1.05rem;font-weight:800;margin:0}
+.gs-header p{font-size:.78rem;opacity:.75;margin:0;line-height:1.5}
+.gs-steps{display:flex;gap:0;border-bottom:1px solid var(--border)}
+.gs-step-tab{flex:1;padding:11px 8px;text-align:center;font-size:.7rem;font-weight:700;color:var(--muted);border-bottom:2px solid transparent;cursor:default;transition:color .2s;white-space:nowrap}
+.gs-step-tab.active{color:var(--navy);border-bottom-color:var(--accent)}
+.gs-step-tab.done{color:var(--green)}
+.gs-body{padding:22px}
+.gs-step{display:none}
+.gs-step.active{display:block}
+.gs-step-title{font-size:.9rem;font-weight:800;color:var(--navy);margin-bottom:6px}
+.gs-step-desc{font-size:.8rem;color:var(--muted);line-height:1.6;margin-bottom:16px}
+.gs-step-desc b{color:var(--navy);font-weight:700}
+.gs-step-desc ol{margin:8px 0 0 18px;display:flex;flex-direction:column;gap:4px}
+.gs-field{display:flex;flex-direction:column;gap:5px;margin-bottom:14px}
+.gs-field label{font-size:.78rem;font-weight:700;color:var(--navy)}
+.gs-field input{background:var(--input-bg);border:1.5px solid var(--border);border-radius:8px;color:var(--text);font-size:.88rem;font-weight:600;padding:9px 11px;width:100%;transition:border-color .2s,box-shadow .2s}
+.gs-field input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(41,121,196,.13)}
+.gs-field-hint{font-size:.7rem;color:var(--muted);line-height:1.5}
+.gs-link-btn{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;background:var(--bg);border:1.5px solid var(--border);border-radius:8px;color:var(--navy);font-size:.8rem;font-weight:700;text-decoration:none;cursor:pointer;transition:background .15s,border-color .15s;margin-bottom:14px}
+.gs-link-btn:hover{background:#eff6ff;border-color:var(--accent)}
+.gs-footer{padding:14px 22px 18px;border-top:1px solid var(--border);display:flex;gap:8px;align-items:center}
+.gs-btn-primary{flex:1;padding:11px;background:var(--accent);color:#fff;border:none;border-radius:8px;font-size:.88rem;font-weight:700;cursor:pointer;transition:background .15s}
+.gs-btn-primary:hover{background:var(--navy)}
+.gs-btn-primary:disabled{opacity:.5;cursor:not-allowed}
+.gs-btn-secondary{padding:11px 16px;background:var(--track);color:var(--muted);border:none;border-radius:8px;font-size:.85rem;font-weight:600;cursor:pointer}
+.gs-btn-secondary:hover{background:var(--border)}
+.gs-info-box{background:#eff6ff;border:1px solid #bfdbfe;border-radius:8px;padding:10px 13px;font-size:.78rem;color:#1e40af;line-height:1.55;margin-bottom:14px}
+.gs-error-box{background:#fee2e2;border:1px solid #fca5a5;border-radius:8px;padding:10px 13px;font-size:.78rem;color:#991b1b;line-height:1.55;display:none;margin-top:10px}
+.gs-disconnect-row{display:flex;align-items:center;justify-content:space-between;padding:8px 0 0;border-top:1px solid var(--border);margin-top:4px}
+.gs-disconnect-btn{background:none;border:1px solid var(--danger);color:var(--danger);border-radius:6px;padding:5px 12px;font-size:.75rem;font-weight:700;cursor:pointer;transition:background .15s,color .15s}
+.gs-disconnect-btn:hover{background:var(--danger);color:#fff}
+
+/* ── Google Sheets header widget ── */
+.gs-connect-btn{background:var(--card);color:var(--navy);border:1.5px solid var(--border);border-radius:8px;padding:9px 16px;font-size:0.82rem;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:6px;transition:background .15s,border-color .15s;white-space:nowrap}
+.gs-connect-btn:hover{background:var(--bg);border-color:var(--navy-light)}
+.gs-connect-btn svg{flex-shrink:0}
+.gs-status-pill{display:flex;align-items:center;gap:5px;padding:7px 12px;border-radius:8px;font-size:0.82rem;font-weight:700;white-space:nowrap;cursor:pointer;border:1.5px solid transparent;transition:background .15s,border-color .15s}
+.gs-status-pill:hover{border-color:var(--border);background:var(--bg)}
+.gs-pill-synced{color:var(--green)}
+.gs-pill-saving{color:var(--muted)}
+.gs-pill-error{color:var(--danger)}
+
 /* ── Backdate panel (dev tool, Shift+Ctrl+T) ── */
 .backdate-overlay{position:fixed;inset:0;background:rgba(15,30,50,.35);display:flex;align-items:center;justify-content:center;z-index:5000;backdrop-filter:blur(2px)}
 .backdate-overlay.hidden{display:none}
@@ -323,6 +377,12 @@ header h1 span{color:var(--green)}
 <header>
   <h1>Financial <span>Dashboard</span></h1>
   <div class="header-right">
+    <div id="gs-header-widget">
+      <button class="gs-connect-btn" onclick="openGsSetupModal()">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        Connect Google Sheets
+      </button>
+    </div>
     <button class="edit-targets-btn" onclick="openTargetsEditor()">
       <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
       Edit Targets
@@ -1021,9 +1081,21 @@ header h1 span{color:var(--green)}
         </div>
       </div>
     </div>
-    <div class="targets-footer">
-      <button class="targets-cancel" onclick="closeTargetsEditor()">Cancel</button>
-      <button class="targets-save" onclick="saveTargetsEditor()">Save Targets</button>
+    <div class="targets-footer" style="flex-direction:column;gap:10px">
+      <div style="display:flex;gap:8px;width:100%">
+        <button class="targets-cancel" onclick="closeTargetsEditor()">Cancel</button>
+        <button class="targets-save" onclick="saveTargetsEditor()">Save Targets</button>
+      </div>
+      <div id="gs-targets-row" class="gs-disconnect-row" style="display:none">
+        <span style="font-size:.75rem;color:var(--muted);font-weight:600">
+          <span id="gs-targets-status-text"></span>
+        </span>
+        <button class="gs-disconnect-btn" onclick="gsDisconnectFromTargets()">Disconnect Google Sheets</button>
+      </div>
+      <div id="gs-connect-row" class="gs-disconnect-row" style="display:none;border-color:var(--border)">
+        <span style="font-size:.75rem;color:var(--muted);font-weight:600">No Google Sheet connected</span>
+        <button onclick="openGsSetupModal()" style="background:var(--accent);border:none;color:#fff;border-radius:6px;padding:5px 12px;font-size:.75rem;font-weight:700;cursor:pointer">Connect Sheet</button>
+      </div>
     </div>
   </div>
 </div>
@@ -1192,6 +1264,126 @@ header h1 span{color:var(--green)}
   </div>
 </div>
 
+<!-- ══ GOOGLE SHEETS SETUP MODAL ══ -->
+<div class="gs-overlay hidden" id="gs-setup-overlay" onclick="if(event.target.id==='gs-setup-overlay')closeGsSetupModal()">
+  <div class="gs-popup" onclick="event.stopPropagation()">
+    <div class="gs-header">
+      <div class="gs-header-top">
+        <h2>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="vertical-align:-2px;margin-right:6px"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+          Connect Google Sheets
+        </h2>
+        <button class="calc-close" onclick="closeGsSetupModal()" style="color:#fff;opacity:.65;font-size:1.4rem">×</button>
+      </div>
+      <p>Sync your dashboard across devices and protect your data from browser cache clears.</p>
+    </div>
+    <div class="gs-steps">
+      <div class="gs-step-tab active" id="gs-tab-1">① Sheet</div>
+      <div class="gs-step-tab" id="gs-tab-2">② OAuth</div>
+      <div class="gs-step-tab" id="gs-tab-3">③ Connect</div>
+    </div>
+    <!-- Local file warning — shown only when running as file:// -->
+    <div id="gs-local-warning" style="display:none;margin:0;padding:16px 22px;background:#fef3c7;border-bottom:1px solid #fde68a">
+      <div style="display:flex;gap:10px;align-items:flex-start">
+        <span style="font-size:1.1rem;flex-shrink:0">⚠️</span>
+        <div>
+          <div style="font-size:.82rem;font-weight:800;color:#92400e;margin-bottom:4px">Google Sheets sync requires the hosted version</div>
+          <div style="font-size:.78rem;color:#713f12;line-height:1.6">
+            You're opening this dashboard as a <strong>local file</strong> (<code style="background:#fde68a;padding:1px 4px;border-radius:3px;font-size:.75rem">file://</code>). Browser security blocks Google OAuth from working with local files — it requires HTTPS from a registered domain.
+            <br><br>
+            To use Google Sheets sync, open the <strong>hosted version</strong> instead:
+          </div>
+          <a href="https://adforth.github.io/financial-dashboard/" target="_blank" rel="noopener"
+             style="display:inline-flex;align-items:center;gap:6px;margin-top:10px;padding:8px 14px;background:#92400e;color:#fff;border-radius:7px;font-size:.8rem;font-weight:700;text-decoration:none;transition:opacity .15s"
+             onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            Open adforth.github.io/financial-dashboard/
+          </a>
+          <div style="font-size:.72rem;color:#92400e;margin-top:8px;font-style:italic">Your locally-saved data is safe — it stays in this browser's localStorage and is not affected.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="gs-body">
+
+      <!-- Step 1: Create Sheet -->
+      <div class="gs-step active" id="gs-step-1">
+        <div class="gs-step-title">Create your Google Sheet</div>
+        <div class="gs-step-desc">
+          Your financial data will be stored in a Sheet in <b>your own Google Drive</b> — only you can access it.
+        </div>
+        <a href="https://sheets.new" target="_blank" rel="noopener" class="gs-link-btn">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          Create New Google Sheet →
+        </a>
+        <div class="gs-step-desc">
+          After opening the Sheet, copy the <b>Sheet ID</b> from the URL bar — it's the long string between <code style="background:var(--bg);padding:1px 5px;border-radius:4px;font-size:.78rem">/d/</code> and <code style="background:var(--bg);padding:1px 5px;border-radius:4px;font-size:.78rem">/edit</code>:
+          <br><br>
+          <code style="background:var(--bg);padding:4px 8px;border-radius:6px;font-size:.75rem;display:block;word-break:break-all">docs.google.com/spreadsheets/d/<b style="color:var(--accent)">1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgVE2upms</b>/edit</code>
+        </div>
+        <div class="gs-field">
+          <label>Sheet ID</label>
+          <input type="text" id="gs-sheet-id" placeholder="Paste your Sheet ID here" oninput="document.getElementById('gs-step1-error').style.display='none'">
+          <span class="gs-field-hint">The ~44-character alphanumeric string from the URL (between <code style="background:var(--bg);padding:1px 4px;border-radius:3px">/d/</code> and <code style="background:var(--bg);padding:1px 4px;border-radius:3px">/edit</code>)</span>
+          <div id="gs-step1-error" style="display:none;margin-top:6px;padding:8px 11px;background:#fee2e2;border:1px solid #fca5a5;border-radius:7px;font-size:.78rem;color:#991b1b;line-height:1.5"></div>
+        </div>
+      </div>
+
+      <!-- Step 2: OAuth Client ID -->
+      <div class="gs-step" id="gs-step-2">
+        <div class="gs-step-title">Create a Google OAuth Client ID</div>
+        <div class="gs-step-desc">
+          This lets the dashboard securely read and write your Sheet. You only need to do this once.
+        </div>
+        <a href="https://console.cloud.google.com/apis/credentials" target="_blank" rel="noopener" class="gs-link-btn">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          Open Google Cloud Console →
+        </a>
+        <div class="gs-step-desc">
+          <ol>
+            <li>Create a new project (or select an existing one)</li>
+            <li>Click <b>+ Create Credentials → OAuth client ID</b></li>
+            <li>Set application type to <b>Web application</b></li>
+            <li>Under <b>Authorized JavaScript origins</b>, add your dashboard URL (e.g. <code style="background:var(--bg);padding:1px 5px;border-radius:4px;font-size:.77rem">http://localhost:PORT</code> or your GitHub Pages URL)</li>
+            <li>Click <b>Create</b>, then copy the <b>Client ID</b></li>
+          </ol>
+          <br>
+          Also enable the <b>Google Sheets API</b>: search for it in the API Library and click Enable.
+        </div>
+        <div class="gs-field">
+          <label>OAuth Client ID</label>
+          <input type="text" id="gs-client-id" placeholder="Paste your Client ID here" oninput="document.getElementById('gs-step2-error').style.display='none'">
+          <span class="gs-field-hint">Ends in .apps.googleusercontent.com</span>
+          <div id="gs-step2-error" style="display:none;margin-top:6px;padding:8px 11px;background:#fee2e2;border:1px solid #fca5a5;border-radius:7px;font-size:.78rem;color:#991b1b;line-height:1.5"></div>
+        </div>
+      </div>
+
+      <!-- Step 3: Connect -->
+      <div class="gs-step" id="gs-step-3">
+        <div class="gs-step-title">Authorize access</div>
+        <div class="gs-info-box">
+          Your dashboard will request permission to read and write <b>only your Google Sheets</b>. No other Google data is accessed. You can revoke access at any time from your Google Account settings.
+        </div>
+        <div class="gs-step-desc">
+          Click <b>Connect with Google</b> below. A Google sign-in window will open — sign in and approve access to Google Sheets.
+        </div>
+        <div id="gs-setup-summary" style="background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:10px 13px;font-size:.78rem;color:var(--navy);font-weight:600;margin-bottom:14px;word-break:break-all">
+          <div style="color:var(--muted);font-size:.7rem;margin-bottom:3px">Sheet ID</div>
+          <div id="gs-summary-sheet" style="margin-bottom:8px"></div>
+          <div style="color:var(--muted);font-size:.7rem;margin-bottom:3px">Client ID</div>
+          <div id="gs-summary-client"></div>
+        </div>
+        <div class="gs-error-box" id="gs-setup-error"></div>
+      </div>
+
+    </div>
+    <div class="gs-footer">
+      <button type="button" class="gs-btn-secondary" id="gs-back-btn" onclick="gsStepBack()" style="display:none">← Back</button>
+      <button type="button" class="gs-btn-primary" id="gs-next-btn" onclick="gsStepNext()">Next →</button>
+    </div>
+  </div>
+</div>
+
 <!-- Toast -->
 <div class="toast" id="toast"></div>
 
@@ -1309,6 +1501,16 @@ header h1 span{color:var(--green)}
 </div>
 
 <script>
+// Safe GS schedule wrapper — GS is defined later in this script
+// GS is defined later in this script. Use try/catch to silently skip calls
+// that happen before GS initializes — avoids Temporal Dead Zone errors from
+// the const GS declaration being referenced before its line executes.
+function gsSchedule() { try { GS.schedule(); } catch(e) {} }
+
+// _gsStep must be declared early (var, not let) so it is available even if
+// script execution is aborted before the late-script let declaration is reached.
+var _gsStep = 1;
+
 // ════════════════════════════════════════════
 // TARGETS
 const DEFAULT_TARGETS = {
@@ -1334,6 +1536,7 @@ function loadTargets() {
 
 function saveTargets() {
   localStorage.setItem('fin_targets_v1', JSON.stringify(targets));
+  gsSchedule();
 }
 
 function updateTargetLabels() {
@@ -1789,6 +1992,7 @@ function saveState() {
   clearTimeout(ind._t);
   ind._t = setTimeout(() => ind.classList.remove('show'), 1800);
   document.getElementById('last-updated').textContent = 'Last updated: ' + s.__updated;
+  gsSchedule();
 }
 
 function loadState() {
@@ -1827,6 +2031,7 @@ function loadPanelVisibility() {
 
 function savePanelVisibility() {
   localStorage.setItem('fin_panel_vis_v1', JSON.stringify([...hiddenPanels]));
+  gsSchedule();
 }
 
 function hideBuiltinPanel(panelId) {
@@ -1898,6 +2103,7 @@ function loadSectionVisibility() {
 
 function saveSectionVisibility() {
   localStorage.setItem('fin_vis_v1', JSON.stringify([...hiddenSections]));
+  gsSchedule();
 }
 
 function toggleSection(sectionId, checkbox) {
@@ -1985,6 +2191,7 @@ function savePanelOrder() {
   const ids = Array.from(document.querySelectorAll('#grid-main > .card'))
     .map(c => c.id).filter(Boolean);
   localStorage.setItem('fin_panel_order_v1', JSON.stringify(ids));
+  gsSchedule();
 }
 
 function loadPanelOrder() {
@@ -2025,6 +2232,7 @@ function loadCustomData() {
 
 function saveCustomData() {
   localStorage.setItem('fin_custom_v1', JSON.stringify(customData));
+  gsSchedule();
 }
 
 function renderAllCustomContent() {
@@ -2249,6 +2457,7 @@ loadPanelOrder();
 initDragDrop();
 loadSnapshots();
 document.querySelectorAll('input').forEach(inp => inp.addEventListener('input', recalc));
+// GS.init() is called after GS is defined, at the bottom of the script
 
 // ════════════════════════════════════════════
 // RESET DASHBOARD
@@ -2526,6 +2735,7 @@ function loadSnapshots() {
 
 function saveSnapshotsData() {
   localStorage.setItem(SNAPSHOTS_KEY, JSON.stringify(snapshots));
+  gsSchedule();
 }
 
 function getCurrentSnapshotData() {
@@ -2827,6 +3037,409 @@ function exportHistory() {
     prompt('Copy this history and paste into Claude:', text);
   });
 }
+
+// ════════════════════════════════════════════
+// GOOGLE SHEETS SYNC
+// ════════════════════════════════════════════
+const GS = (() => {
+  const SCOPES   = 'https://www.googleapis.com/auth/spreadsheets';
+  const TAB      = 'Dashboard Data';
+  const LS_KEY   = 'fin_gs_config';
+  const SYNC_KEYS = [
+    'fin_dashboard_v2','fin_targets_v1','fin_custom_v1',
+    'fin_panel_vis_v1','fin_vis_v1','fin_panel_order_v1','fin_snapshots_v1'
+  ];
+
+  let _clientId    = '';
+  let _sheetId     = '';
+  let _tokenClient = null;
+  let _token       = null;
+  let _tokenExp    = 0;
+  let _syncTimer   = null;
+  let _authResolve = null;
+
+  // ── Header widget (button ↔ status pill) ──
+  function setStatus(state) {
+    const widget = document.getElementById('gs-header-widget');
+    if (!widget) return;
+    if (state === 'hidden') {
+      // Not connected — show the "Connect" button
+      widget.innerHTML = `<button class="gs-connect-btn" onclick="openGsSetupModal()">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        Connect Google Sheets
+      </button>`;
+      return;
+    }
+    const map = {
+      connected: { text: 'Synced ✓',    cls: 'gs-pill-synced' },
+      saving:    { text: 'Saving…',      cls: 'gs-pill-saving' },
+      error:     { text: 'Sync error ⚠', cls: 'gs-pill-error'  }
+    };
+    const s = map[state] || map.connected;
+    widget.innerHTML = `<button class="gs-status-pill ${s.cls}" onclick="openGsSetupModal()" title="Google Sheets connected — click to manage">${s.text}</button>`;
+  }
+
+  // ── Config ────────────────────────────────
+  function loadConfig() {
+    try {
+      const raw = localStorage.getItem(LS_KEY);
+      if (raw) { const c = JSON.parse(raw); _clientId = c.clientId||''; _sheetId = c.sheetId||''; }
+    } catch(e) {}
+    return !!(    _clientId && _sheetId);
+  }
+  function saveConfig(cid, sid) {
+    _clientId = cid; _sheetId = sid;
+    localStorage.setItem(LS_KEY, JSON.stringify({ clientId: cid, sheetId: sid }));
+  }
+  function clearConfig() {
+    _clientId = ''; _sheetId = ''; _token = null; _tokenExp = 0;
+    localStorage.removeItem(LS_KEY);
+  }
+
+  // ── Google Identity Services ──────────────
+  function loadGIS() {
+    return new Promise(resolve => {
+      if (window.google?.accounts?.oauth2) { resolve(); return; }
+      const s = document.createElement('script');
+      s.src = 'https://accounts.google.com/gsi/client';
+      s.onload  = resolve;
+      s.onerror = resolve; // gracefully handle offline
+      document.head.appendChild(s);
+    });
+  }
+
+  async function initTokenClient() {
+    await loadGIS();
+    if (!window.google?.accounts?.oauth2) return false;
+    _tokenClient = google.accounts.oauth2.initTokenClient({
+      client_id: _clientId,
+      scope:     SCOPES,
+      callback:  resp => {
+        if (resp.error) {
+          setStatus('error');
+          if (_authResolve) { _authResolve(null); _authResolve = null; }
+          return;
+        }
+        _token    = resp.access_token;
+        _tokenExp = Date.now() + (resp.expires_in - 60) * 1000;
+        if (_authResolve) { _authResolve(_token); _authResolve = null; }
+      }
+    });
+    return true;
+  }
+
+  async function getToken(interactive) {
+    if (_token && Date.now() < _tokenExp) return _token;
+    if (!_tokenClient) {
+      const ok = await initTokenClient();
+      if (!ok) return null;
+    }
+    return new Promise(resolve => {
+      _authResolve = resolve;
+      _tokenClient.requestAccessToken({ prompt: interactive ? 'consent' : '' });
+    });
+  }
+
+  // ── Sheets REST API ───────────────────────
+  async function sheetsReq(method, path, body) {
+    const tok = await getToken(false);
+    if (!tok) throw new Error('no_token');
+    const url = `https://sheets.googleapis.com/v4/spreadsheets/${_sheetId}${path}`;
+    const opts = { method, headers: { 'Authorization': 'Bearer ' + tok, 'Content-Type': 'application/json' } };
+    if (body) opts.body = JSON.stringify(body);
+    const res = await fetch(url, opts);
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}));
+      throw new Error(err.error?.message || res.statusText);
+    }
+    return res.json();
+  }
+
+  async function ensureTab() {
+    const info = await sheetsReq('GET', '?fields=sheets.properties.title');
+    const exists = (info.sheets||[]).some(s => s.properties.title === TAB);
+    if (!exists) {
+      await sheetsReq('POST', ':batchUpdate', {
+        requests: [{ addSheet: { properties: { title: TAB } } }]
+      });
+    }
+    // Always write/refresh header row
+    await sheetsReq('PUT',
+      `/values/${encodeURIComponent(TAB+'!A1:B1')}?valueInputOption=RAW`,
+      { values: [['Key','Value']] }
+    );
+  }
+
+  // ── Write all data to Sheet ───────────────
+  async function saveAll() {
+    if (!_clientId || !_sheetId) return;
+    setStatus('saving');
+    try {
+      await ensureTab();
+      const rows = [['Key','Value']];
+      SYNC_KEYS.forEach(k => { const v = localStorage.getItem(k); if (v !== null) rows.push([k, v]); });
+      await sheetsReq('PUT',
+        `/values/${encodeURIComponent(TAB+'!A:B')}?valueInputOption=RAW`,
+        { values: rows }
+      );
+      setStatus('connected');
+    } catch(e) {
+      console.warn('[GSheets] save error:', e.message);
+      setStatus('error');
+    }
+  }
+
+  // ── Read all data from Sheet ──────────────
+  async function loadAll() {
+    if (!_clientId || !_sheetId) return false;
+    try {
+      const tok = await getToken(false);
+      if (!tok) return false;
+      const data = await sheetsReq('GET', `/values/${encodeURIComponent(TAB+'!A:B')}`);
+      const rows = (data.values || []).slice(1); // skip header
+      let loaded = 0;
+      rows.forEach(([k, v]) => {
+        if (k && v !== undefined && SYNC_KEYS.includes(k)) { localStorage.setItem(k, v); loaded++; }
+      });
+      return loaded > 0;
+    } catch(e) {
+      console.warn('[GSheets] load error:', e.message);
+      return false;
+    }
+  }
+
+  // ── Debounced sync schedule ───────────────
+  function schedule() {
+    if (!_clientId || !_sheetId) return;
+    clearTimeout(_syncTimer);
+    setStatus('saving');
+    _syncTimer = setTimeout(() => saveAll(), 5000);
+  }
+
+  // ── Reload dashboard from freshly-populated localStorage ──
+  function reloadAllFromStorage() {
+    loadTargets();
+    loadState();
+    loadCustomData();
+    updateTargetLabels();
+    recalc();
+    renderAllCustomContent();
+    loadPanelVisibility();
+    loadSectionVisibility();
+    loadPanelOrder();
+    loadSnapshots();
+  }
+
+  function updateTargetsRow() {
+    const connRow  = document.getElementById('gs-connect-row');
+    const discRow  = document.getElementById('gs-targets-row');
+    const statTxt  = document.getElementById('gs-targets-status-text');
+    if (!connRow || !discRow) return;
+    if (_clientId && _sheetId) {
+      discRow.style.display = '';
+      connRow.style.display = 'none';
+      if (statTxt) statTxt.textContent = 'Syncing to Google Sheet';
+    } else {
+      discRow.style.display = 'none';
+      connRow.style.display = '';
+      setStatus('hidden'); // ensure header widget shows Connect button
+    }
+  }
+
+  // ── Public API ────────────────────────────
+  return {
+    schedule,
+
+    async init() {
+      const configured = loadConfig();
+      updateTargetsRow();
+      if (!configured) {
+        // Show setup modal after a short delay so the dashboard renders first
+        setTimeout(() => {
+          document.getElementById('gs-setup-overlay').classList.remove('hidden');
+          gsSetupStep(1);
+        }, 800);
+        setStatus('hidden');
+        return;
+      }
+      // Configured — try silent token and load from Sheets
+      setStatus('saving');
+      await loadGIS();
+      const ok = await initTokenClient();
+      if (ok) {
+        const loaded = await loadAll();
+        if (loaded) {
+          reloadAllFromStorage();
+          setStatus('connected');
+        } else {
+          setStatus('connected');
+        }
+      } else {
+        setStatus('error');
+      }
+    },
+
+    async connect(clientId, sheetId) {
+      saveConfig(clientId, sheetId);
+      updateTargetsRow();
+      await loadGIS();
+      const ok = await initTokenClient();
+      if (!ok) { setStatus('error'); return false; }
+      const tok = await getToken(true); // interactive sign-in
+      if (!tok) { setStatus('error'); return false; }
+      await saveAll();
+      setStatus('connected');
+      return true;
+    },
+
+    disconnect() {
+      if (_token && window.google?.accounts?.oauth2) {
+        try { google.accounts.oauth2.revoke(_token); } catch(e) {}
+      }
+      clearConfig();
+      _tokenClient = null;
+      updateTargetsRow();
+      setStatus('hidden');
+    },
+
+    isConnected() { return !!(    _clientId && _sheetId); }
+  };
+})();
+
+// ════════════════════════════════════════════
+// GOOGLE SHEETS SETUP MODAL UI
+// ════════════════════════════════════════════
+function openGsSetupModal() {
+  document.getElementById('gs-setup-overlay').classList.remove('hidden');
+  // Show local-file warning when running as file:// — OAuth requires HTTPS
+  var warn = document.getElementById('gs-local-warning');
+  if (warn) warn.style.display = (window.location.protocol === 'file:') ? '' : 'none';
+  gsSetupStep(1);
+}
+function closeGsSetupModal() {
+  document.getElementById('gs-setup-overlay').classList.add('hidden');
+}
+
+function gsSetupStep(n) {
+  _gsStep = n;
+  [1,2,3].forEach(i => {
+    document.getElementById('gs-step-' + i).classList.toggle('active', i === n);
+    const tab = document.getElementById('gs-tab-' + i);
+    tab.classList.toggle('active', i === n);
+    tab.classList.toggle('done', i < n);
+  });
+  document.getElementById('gs-back-btn').style.display = n > 1 ? '' : 'none';
+  const nextBtn = document.getElementById('gs-next-btn');
+  if (n === 3) {
+    nextBtn.textContent = 'Connect with Google';
+    // Update summary pane
+    const sid = (document.getElementById('gs-sheet-id').value || '').trim();
+    const cid = (document.getElementById('gs-client-id').value || '').trim();
+    document.getElementById('gs-summary-sheet').textContent = sid || '(not set)';
+    document.getElementById('gs-summary-client').textContent = cid || '(not set)';
+    document.getElementById('gs-setup-error').style.display = 'none';
+  } else {
+    nextBtn.textContent = 'Next →';
+  }
+}
+
+function gsStepBack() {
+  if (_gsStep > 1) gsSetupStep(_gsStep - 1);
+}
+
+function gsStepNext() {
+  if (_gsStep === 1) {
+    var input = document.getElementById('gs-sheet-id');
+    var errEl = document.getElementById('gs-step1-error');
+    var sid = input ? input.value.trim() : '';
+
+    if (!sid) {
+      errEl.textContent = 'Please paste your Sheet ID before continuing.';
+      errEl.style.display = '';
+      if (input) input.focus();
+      return;
+    }
+    // Loose sanity check: Sheet IDs are long alphanumeric strings with no spaces
+    if (sid.indexOf(' ') !== -1 || sid.indexOf('docs.google.com') !== -1) {
+      errEl.textContent = 'Paste just the ID from the URL, not the full link. It\'s the string between /d/ and /edit.';
+      errEl.style.display = '';
+      if (input) input.focus();
+      return;
+    }
+    if (sid.length < 10) {
+      errEl.textContent = 'That ID looks too short. Copy the full string between /d/ and /edit in your Sheet URL.';
+      errEl.style.display = '';
+      if (input) input.focus();
+      return;
+    }
+    errEl.style.display = 'none';
+    gsSetupStep(2);
+    return;
+  }
+
+  if (_gsStep === 2) {
+    var input2 = document.getElementById('gs-client-id');
+    var errEl2 = document.getElementById('gs-step2-error');
+    var cid = input2 ? input2.value.trim() : '';
+
+    if (!cid) {
+      errEl2.textContent = 'Please paste your OAuth Client ID before continuing.';
+      errEl2.style.display = '';
+      if (input2) input2.focus();
+      return;
+    }
+    if (cid.indexOf('.apps.googleusercontent.com') === -1) {
+      errEl2.textContent = 'That doesn\'t look like a valid Client ID — it should end in .apps.googleusercontent.com.';
+      errEl2.style.display = '';
+      if (input2) input2.focus();
+      return;
+    }
+    errEl2.style.display = 'none';
+    gsSetupStep(3);
+    return;
+  }
+
+  if (_gsStep === 3) {
+    gsConnectNow();
+  }
+}
+
+async function gsConnectNow() {
+  var sid = (document.getElementById('gs-sheet-id').value || '').trim();
+  var cid = (document.getElementById('gs-client-id').value || '').trim();
+  var errBox = document.getElementById('gs-setup-error');
+  var btn = document.getElementById('gs-next-btn');
+
+  errBox.style.display = 'none';
+  btn.disabled = true;
+  btn.textContent = 'Connecting…';
+
+  try {
+    var ok = await GS.connect(cid, sid);
+    if (ok) {
+      closeGsSetupModal();
+      showToast('✓ Google Sheets connected — your data will now sync automatically');
+    } else {
+      errBox.textContent = 'Authorization failed. Make sure your Client ID is correct and this page\'s URL is listed under Authorized JavaScript Origins in Google Cloud Console.';
+      errBox.style.display = '';
+    }
+  } catch(e) {
+    errBox.textContent = 'Error: ' + (e.message || 'Unknown error — check the browser console for details.');
+    errBox.style.display = '';
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Connect with Google';
+  }
+}
+
+function gsDisconnectFromTargets() {
+  if (!confirm('Disconnect Google Sheets?\n\nYour data will continue to be saved locally in this browser. The connected Sheet will not be deleted.')) return;
+  GS.disconnect();
+  showToast('Google Sheets disconnected — data now saves locally only');
+}
+
+// GS is now fully defined — initialize
+GS.init();
 </script>
 </body>
 </html>
